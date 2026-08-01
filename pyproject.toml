@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "computer-use-agent"
+version = "0.1.0"
+description = "Learning-focused vision computer-use agent on E2B Desktop (vision → action → grounding)"
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.10"
+e2b-desktop = "^1.7.2"
+openai = "^1.59.5"
+python-dotenv = "^1.0.1"
+pillow = "^11.0.0"
+
+# Uncomment once main.py exists (Phase 1+)
+# [tool.poetry.scripts]
+# start = "main:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
