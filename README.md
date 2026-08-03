@@ -26,8 +26,10 @@ cp .env.example .env
 ## Run
 
 ```sh
-poetry run start
-# or: poetry run start --prompt "Open Firefox and search for the weather in San Francisco"
+poetry run python main.py
+# Scripted desktop smoke test (no LLM):
+poetry run python main.py --demo-desktop
+# Later: poetry run python main.py --prompt "Open Firefox and search for the weather in San Francisco"
 ```
 
 The VNC URL opens in your browser so you can watch the desktop live. Run artifacts (screenshots, logs) are written under `output/`.
