@@ -21,6 +21,7 @@ poetry install
 
 cp .env.example .env
 # Set E2B_API_KEY and OPENROUTER_API_KEY
+# Optional: VISION_MODEL / ACTION_MODEL / GROUNDING_MODEL (OpenRouter IDs)
 ```
 
 ## Run
@@ -29,6 +30,8 @@ cp .env.example .env
 poetry run python main.py
 # Scripted desktop smoke test (no LLM):
 poetry run python main.py --demo-desktop
+# Check vision / action / grounding clients on a screenshot (needs OPENROUTER_API_KEY):
+poetry run python scripts/check_models.py
 # Later: poetry run python main.py --prompt "Open Firefox and search for the weather in San Francisco"
 ```
 
