@@ -63,6 +63,11 @@ def kill_sandbox() -> None:
         _sandbox = None
 
 
+def set_timeout(timeout: int = 120) -> None:
+    """Extend the sandbox lifetime so long model calls do not kill the desktop."""
+    _require_sandbox().set_timeout(timeout)
+
+
 def save_image(
     image: bytes | bytearray,
     prefix: str = "screenshot",

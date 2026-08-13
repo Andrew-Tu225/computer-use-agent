@@ -30,9 +30,10 @@ cp .env.example .env
 poetry run python main.py
 # Scripted desktop smoke test (no LLM):
 poetry run python main.py --demo-desktop
-# Check vision / action / grounding clients on a screenshot (needs OPENROUTER_API_KEY):
+# Agent loop (needs OPENROUTER_API_KEY):
+poetry run python main.py --prompt "Open the terminal by clicking its icon"
+# Check vision / action / grounding clients on a screenshot:
 poetry run python scripts/check_models.py
-# Later: poetry run python main.py --prompt "Open Firefox and search for the weather in San Francisco"
 ```
 
 The VNC URL opens in your browser so you can watch the desktop live. Run artifacts (screenshots, logs) are written under `output/`.

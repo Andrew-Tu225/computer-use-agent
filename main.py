@@ -1,4 +1,4 @@
-"""Create an E2B Desktop sandbox, open the VNC stream, wait, then tear down."""
+"""Create an E2B Desktop sandbox, open the VNC stream, run demos or the agent."""
 
 from __future__ import annotations
 
@@ -8,6 +8,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
+from agent.agent import ComputerAgent
 from desktop.sandbox import (
     create_sandbox,
     kill_sandbox,
@@ -50,11 +51,29 @@ def main() -> None:
         action="store_true",
         help="Run scripted Chrome control demo (no LLM)",
     )
+    parser.add_argument(
+        "--prompt",
+        type=str,
+        default=None,
+        help="Run the vision→action→grounding agent with this objective",
+    )
+    parser.add_argument(
+        "--max-steps",
+        type=int,
+        default=25,
+        help="Maximum agent loop iterations (default: 25)",
+    )
     args = parser.parse_args()
+
+    if args.demo_desktop and args.prompt:
+        parser.error("Use only one of --demo-desktop or --prompt")
+
+    # Agent / demo runs need a longer initial lease; the loop also refreshes timeout.
+    needs_long_timeout = bool(args.demo_desktop or args.prompt)
 
     try:
         print("Creating E2B Desktop sandbox...")
-        sandbox = create_sandbox(timeout=300 if args.demo_desktop else 60)
+        sandbox = create_sandbox(timeout=600 if needs_long_timeout else 60)
         print(f"Sandbox ready: {sandbox.sandbox_id}")
 
         vnc_url = start_sandbox_vnc()
@@ -63,6 +82,8 @@ def main() -> None:
 
         if args.demo_desktop:
             run_desktop_demo()
+        elif args.prompt:
+            ComputerAgent(max_steps=args.max_steps).run(args.prompt)
 
         try:
             input("Press Enter to stop and kill the sandbox...\n")

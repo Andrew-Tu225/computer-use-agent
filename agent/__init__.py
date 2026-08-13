@@ -1,4 +1,4 @@
-"""Agent package: model clients, prompts, and grounding helpers.
+"""Agent package: model clients, prompts, grounding, tools, and loop.
 
 Modules
 -------
@@ -8,6 +8,10 @@ prompts
     Prompt text and ``build_*`` helpers used by ``models``.
 grounding
     Coordinate parsing and red-dot debug overlays (no LLM calls).
-
-The agent loop and tool execution live elsewhere (not in this package yet).
+tools
+    Tool schemas + desktop handlers (``click``, ``type_text``, …).
+loop
+    See → decide → act → observe orchestration and ``run_log.md``.
+agent
+    Thin ``ComputerAgent`` facade with ``run(objective)``.
 """
